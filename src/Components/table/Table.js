@@ -37,11 +37,11 @@ export class Table extends ExcelComponent {
       document.onmousemove = e => {
         if (type === 'col') {
           const delta = e.pageX - coords.right
-          val = coords.width + delta
+          val = (coords.width + delta) >= 40 ? coords.width + delta : 40
           $resizer.css({right: -delta + 'px'})
         } else {
           const delta = e.pageY - coords.bottom
-          val = coords.height + delta
+          val = (coords.height + delta) >= 20 ? coords.height + delta : 20
           $resizer.css({bottom: -delta + 'px'})
         }
       }
@@ -52,6 +52,7 @@ export class Table extends ExcelComponent {
         $resizer.css({opacity: 0,
           bottom: 0,
           right: 0,
+          zIndex: 0,
         })
         if (type === 'col') {
           $parent.css({width: val + 'px'})
